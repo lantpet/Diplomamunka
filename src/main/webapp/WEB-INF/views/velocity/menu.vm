@@ -1,0 +1,34 @@
+<link rel="stylesheet" type="text/css" href="./resources/css/bootstrap.css" />
+<script type="text/javascript"  src="./resources/js/bootstrap.js"></script>
+<script type="text/javascript">
+	
+	function openAndCloseMyNavHeader() {
+		$("#myNavHeader").stop();
+		$("#myNavHeader").slideToggle("slow");
+	}
+		
+</script>
+	<div class="navbar navbar-default">
+		 <div class="navbar-header">
+				<a class="navbar-brand" href="userdetails">#springMessageText("messages.menu.home" "messages.menu.home")</a>
+				
+				<button class="navbar-toggle" onclick="openAndCloseMyNavHeader()">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>	
+				<span class="navbar-toggle languageSelectorMin">
+					<a title="hu" href="?locale=hu"><img src="./resources/images/hun.JPG"/></a> <a title="en" href="?locale=en"><img src="./resources/images/en.JPG"/></a><br>
+				</span>
+				<span class="navbar-toggle" id="sessionTimeSpanMin"></span>
+		 </div>
+
+                  <a href="cart" class="navbar-brand">#springMessageText("messages.menu.Cart" "messages.menu.Cart") </a>
+                  <a class="navbar-brand" href="books">#springMessageText("messages.menu.BookList" "messages.menu.BookList")</a>
+
+      <div class="navbar-collapse collapse navbar-responsive-collapse navHeaderCollapse" id="myNavHeader">
+            <ul class="nav navbar-nav navbar-right">
+			<li><a href="logout">#springMessageText("messages.menu.logout" "messages.menu.logout")</a></li>
+		</ul>
+      </div>
+</div>

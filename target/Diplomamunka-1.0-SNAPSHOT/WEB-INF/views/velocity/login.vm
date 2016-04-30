@@ -1,0 +1,83 @@
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="./resources/css/login.css" />
+	<link rel="stylesheet" type="text/css" href="./resources/css/bootstrap.css" />
+	<script type="text/javascript"  src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+</head>
+<script>
+    function forgottenPassword(){
+	$("#forgottenPasswordContent").show();
+	$("#loginContent").hide();
+	$("#forgottenPasswordLink").hide();
+}
+function backToLogin(){
+	$("#loginContent").show();
+	$("#forgottenPasswordContent").hide();
+	$("#forgottenPasswordLink").show();
+}
+</script>
+<body>
+	<div class="container" align="center">
+		<div class=" lns_main_div">
+    		<div class="lns_login_control">
+        		<form name="login_form" action = "login" method="post" >
+						
+        			<div class="form-group col-sm-12" style="margin-bottom: 0px">
+        			</div>
+        			<div>
+        				<a title="hu" href="?locale=hu"><img src="./resources/images/hun.JPG"/></a> <a title="en" href="?locale=en"><img src="./resources/images/en.JPG"/></a>
+        			</div>
+					<div id="loginContent">
+						<div class="form-group col-sm-12">
+            				<label style="color:red; font-style:oblique;">#if($dbNotFound == "dbNotFound")  <font size="3">#springMessageText("messages.login.dbNotFound" "messages.login.dbNotFound")</font> #end</label>
+            			</div>
+						
+						<div class="form-group col-sm-12">
+            				<label style="color:red; font-style:oblique;">#if($notSuccessLogin == "notSuccessLogin") <font size="3">#springMessageText("messages.login.notSuccessLogin" "messages.login.notSuccessLogin")</font> #end</label>
+            			</div>
+						
+            			<div class="form-group col-sm-12">
+            				<label>#springMessageText("messages.login.email" "messages.login.email")</label>
+            				<input type="text" class="form-control" name="email" placeholder="valami@másvalami.hu"/>
+            			</div>
+            			<div class="form-group col-sm-12">
+            				<label>#springMessageText("messages.login.password" "messages.login.password")</label>
+            				<input type="password" class="form-control" name="password" placeholder="jelszó"/>   
+            			</div>
+    					<div class="form-group col-sm-12">
+            				<input type="submit" class="btn btn-primary" id="login" value="Login"/>
+            			</div>
+					</div>
+        		</form>
+                           <a href="registration">#springMessageText("messages.new_user.Registration" "messages.new_user.Registration")</a>
+
+				<div id="forgottenPasswordContent" style="display:none;">
+					<form name="forgotten_password" action = "recover_password_token" method="post">
+						<div class="form-group col-sm-12">
+            				<h5>#springMessageText("messages.login.forgottenPassword" "messages.login.forgottenPassword")</h5>
+            			</div>
+    					<div class="form-group col-sm-12">
+                			<label>E-mail:</label>
+                			<input type="text" class="form-control" name="email" placeholder="valami@másvalami.hu"/>
+                		</div>
+						<div class="form-group col-sm-8">
+            				<input type="submit" class="btn btn-primary" id="login" value="Jelszóemlékeztető igénylése"/>
+            			</div>
+						<div class="form-group col-sm-4">
+            				<a onclick="backToLogin()" class="btn btn-default">#springMessageText("messages.login.back" "messages.login.back")</a>
+            			</div>
+					</form>
+				</div>
+    		</div>
+		</div>
+	</div>
+	
+	<div class="navbar navbar-fixed-bottom" id="forgottenPasswordLink">
+		<div class="container" align="center">
+			<a onclick="forgottenPassword()" class="navbar-button h5" style="cursor: pointer;">#springMessageText("messages.login.forgottenPassword" "messages.login.forgottenPassword")</a>
+		</div>
+	</div>
+</body>
+</html>

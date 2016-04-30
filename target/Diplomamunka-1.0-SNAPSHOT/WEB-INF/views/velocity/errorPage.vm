@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>Error</title>
+</head>
+<body>
+
+	#if($loggedIn != "loggedIn")
+		#parse("./menu.vm")<p></p>
+			<div class="jumbotron">
+				<div class="container">
+					<font size="7" style="color:red;">#springMessageText("messages.errorPage.text" "messages.errorPage.text")</font>
+				</div>
+			</div>
+	#else
+		<div class="jumbotron">
+				<div class="container">
+					<font size="7" style="color:red;">#springMessageText("messages.errorPage.text" "messages.errorPage.text") &nbsp<a href="home">#springMessageText("messages.error404.loginHere" "messages.error404.loginHere")</a></font>
+				</div>
+			</div>
+		
+	#end
+</body>
+</html>

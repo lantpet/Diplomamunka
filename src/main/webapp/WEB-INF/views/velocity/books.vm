@@ -1,0 +1,301 @@
+<html>
+<head>
+	<title>Books</title>
+	
+	
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script type="text/javascript"  src="./resources/js/modifiedBookCheck.js"></script>
+    <script type="text/javascript"  src="./resources/js/books.js"></script>
+       <script>
+		var titleEmpty = "#springMessageText("message.modifiedBook.titleEmpty" "message.modifiedBook.titleEmpty")";
+		var writerEmpty = "#springMessageText("message.modifiedBook.writerEmpty" "message.modifiedBook.writerEmpty")";
+                var priceEmpty = "#springMessageText("message.modifiedBook.priceEmpty" "message.modifiedBook.priceEmpty")";
+                var release_date_empty = "#springMessageText("message.modifiedBook.releaseDate_Empty" "message.modifiedBook.releaseDate_Empty")";
+                var categoryEmpty = "#springMessageText("message.modifiedBook.categoryEmpty" "message.modifiedBook.categoryEmpty ")";
+                var wrongFile = "#springMessageText("message.modifiedBook.wrongFile" "message.modifiedBook.wrongFile")";
+
+    </script>
+<script>
+
+function showBookDetails(bookID) {
+    $("#modifiedImages").attr('src', "getImage."+bookID);
+    $.ajax({
+        url: 'modify_book.'+bookID,
+        contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Accept', "text/html; charset=utf-8");
+        },
+        success: function (data) {
+            var result = data.split("__asplit__");
+            $("#titles").text(result[0]);
+            $("#writers").text(result[1]);
+            $("#release_dates").text(result[2]);
+            $("#categorys").text(result[3]);
+            var priceString = result[4] + ' Ft';
+            $("#prices").text(priceString); 
+        }
+    });
+}
+function bookDetailModifier(bookID) {	
+		console.log(bookID);
+		$("#hiddenBookId").val(bookID); 
+                $("#modifiedImage").attr('src', "getImage."+bookID);
+				
+		$.ajax({
+                    url : 'modify_book.'+bookID,
+                    contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+                     beforeSend : function(xhr) {
+                        xhr.setRequestHeader('Accept', "text/html; charset=utf-8");
+                },
+                success : function(data) {
+                        var result = data.split("__asplit__");
+                        $("#title").val(result[0]);
+                        $("#writer").val(result[1]);
+                        $("#release_date").val(result[2]);
+                        $("#category").val(result[3]);
+                        $("#price").val(result[4]);
+                        
+                }
+		});
+	}
+</script>
+<script>
+function bigImg(x) {
+    x.style.height = "150px";
+    x.style.width = "150px";
+}
+
+function normalImg(x) {
+    x.style.height = "50px";
+    x.style.width = "50px";
+}
+</script>
+</head>
+<body>
+	 #parse("./menu.vm")<p></p>
+	 
+<div class="container container-fluid">
+	#if($bookList.size()!=0)
+	<div class="panel panel-default">
+                <div class="panel-heading">
+			<span class="text-left">#springMessageText("messages.menu.Books" "messages.menu.Books")</span>
+                        #if($roles=="ADMIN")
+                        <a class="btn btn-primary pull-right" href="new_book">#springMessageText("messages.menu.newBook" "messages.menu.newBook")</a>
+                        #end
+                        <div class="clearfix"></div>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive">
+                        <table border="0" cellspacing="5" cellpadding="5" style="margin-bottom: 20px;">
+                            <tbody>
+                            <tr >
+                                <div class="form-group">
+                                    <td>#springMessageText("messages.table.minprice" "messages.table.minprice")</td>
+                                    <td><input class="form-control" style="width: 100px" type="text" id="min" name="min"></td>
+                                </div>
+                                
+                            </tr>
+                            <tr>
+                                 <div class="form-group">
+                                <td>#springMessageText("messages.table.maxprice" "messages.table.maxprice")</td>
+                                <td><input class="form-control" type="text" style="width: 100px" id="max" name="max"></td>
+                              
+                                </div>
+                            </tr>
+                            
+                            </tbody>
+                        </table>
+    			<table id="book_data_table" class="table table-striped table-bordered">
+        			<thead>
+        				<tr>
+                                        <th class="col-md-2" style="text-align:center !important">kép</th>
+            				<th style="text-align:center !important">#springMessageText("messages.books.title" "messages.books.title")</th>
+            				<th style="text-align:center !important">#springMessageText("messages.books.writer" "messages.books.writer")</th>
+            				<th style="text-align:center !important">#springMessageText("messages.books.releaseDate" "messages.books.releaseDate")</th>
+                                        <th style="text-align:center !important">#springMessageText("messages.books.category" "messages.books.category")</th>
+                                        <th style="text-align:center !important">#springMessageText("messages.books.price" "messages.books.price")</th>
+            				<th style="white-space: nowrap; width: 1%;"></th>
+        				</tr>
+        			</thead>
+                                <tfoot>
+        				<tr>
+                                        <th></th>
+            				<th class="select-filter">#springMessageText("messages.books.title" "messages.books.title")</th>
+            				<th class="select-filter">#springMessageText("messages.books.writer" "messages.books.writer")</th>
+            				<th class="select-filter">#springMessageText("messages.books.releaseDate" "messages.books.releaseDate")</th>
+                                        <th class="select-filter">#springMessageText("messages.books.category" "messages.books.category")</th>
+                                        <th class="select-filter">#springMessageText("messages.books.price" "messages.books.price")</th>
+            				<th style="white-space: nowrap; width: 1%;"></th>
+        				</tr>
+        			</tfoot>
+        			
+        			<tbody>
+        				#foreach($book in $bookList)
+        				<tr>
+                                                <td style="text-align:center !important;"><img  style="width: 50px; height:50px;" src="getImage.$book.getId()"  onmouseover="bigImg(this)" onmouseout="normalImg(this)"/></td>
+        					<td style="text-align:center !important; vertical-align: middle">$book.getTitle()</td>
+        					<td style="text-align:center !important; vertical-align: middle">$book.getWriter()</td>
+        					<td style="text-align:center !important; vertical-align: middle">$book.getReleaseDate()</td>
+                                                <td style="text-align:center !important; vertical-align: middle">$book.getCategory().getCategoryName()</td>
+                                                <td style="text-align:center !important; vertical-align: middle">$book.getPrice()<span> Ft </span></td>
+                                               
+        					
+        					<td style="text-align: center; vertical-align: middle; white-space: nowrap;">
+        					#if($roles=="ADMIN")
+                                                 <a href="removeBook.$book.getId()" title="#springMessageText("message.delete.delete" "message.delete.delete")" class="btn btn-danger glyphicon glyphicon-trash"></a>
+                                                 <button class="btn btn-primary glyphicon glyphicon-pencil" title="#springMessageText("messages.modify.modify" "messages.modify.modify")" data-toggle="modal" data-target="#modifierModall" onclick='bookDetailModifier($book.getId())'></button>
+                                               
+                                                #end
+        					<a href="addProduct.$book.getId()" title="#springMessageText("messages.cart.InCart" "messages.cart.InCart")" class="btn btn-primary  glyphicon glyphicon-shopping-cart"></a>
+                                                  <button class="btn btn-primary glyphicon glyphicon-info-sign" title="#springMessageText("messages.details.details" "messages.details.details")" data-toggle="modal" data-target="#detailsModal" onclick='showBookDetails($book.getId())'>		
+        					</button>
+                                                </td>
+        				</tr>
+        			#end
+        			</tbody>
+    			</table>
+			</div>
+		</div>
+	</div>
+	#else
+		<div class="container">
+			#springMessageText("messages.books.noData" "messages.books.noData ")
+		</div>
+	#end
+</div>
+
+<div class="modal fade" id="modifierModall" tabindex="-1" role="dialog" aria-labelledby="modifierModallLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="modifierModallLabel">#springMessageText("messages.books.modifiyBook" "messages.books.modifiyBook")</h4>
+        </div>	  
+	  <form class="form-horizontal"  id="modifiedBookIdentifier" role="form" action = "modified_book" enctype="multipart/form-data" method="post" id="modifierForm">
+      
+	  <div class="modal-body">
+                        <div class= "form-group" style="text-align: center">
+                            <div style="padding-left:30px">
+                                <img id="modifiedImage" style="width: 80px; height:80px;"/>
+                              </div>
+                        </div> 
+			<div class="form-group">
+                                
+        			<label class="col-sm-3 control-label">#springMessageText("messages.books.title" "messages.books.title") <br><span style="color: red" id="title_error" class="lnd_input_error"></span></label>
+        			<div class="col-sm-9">
+        				<input type="text" class="form-control" name="title" id="title">
+        			</div>
+                        </div>
+			
+			<div class="form-group">		
+        			<label  class="col-sm-3 control-label">#springMessageText("messages.books.writer" "messages.books.writer")<br><span style="color: red" id="writer_error" class="lnd_input_error"></span></label>
+        			<div class="col-sm-9">
+                                    <input type="text" class="form-control" name="writer" id="writer">
+        			</div>
+                        </div>
+                        <div class="form-group">		
+        			<label  class="col-sm-3 control-label">#springMessageText("messages.books.category" "messages.books.category")<br><span style="color: red" id="category_error" class="lnd_input_error"></span></label>
+        			<div class="col-sm-9">
+                                    <select class="form-control"  id="category" name="category">
+                                        #foreach($categorys in $categoryMap)
+                                            <option value="$categorys"> $categorys </option>
+                                        #end
+                                    </select>
+        			</div>
+                        </div>
+			
+			<div class="form-group">		
+        			<label class="col-sm-3 control-label">#springMessageText("messages.books.releaseDate" "messages.books.releaseDate")<br><span style="color: red" id="release_date_error" class="lnd_input_error"></span></label>
+        			<div class="col-sm-9">
+                                    <input type="number" class="form-control" min="1900" max="2016" name="release_date" id="release_date">
+        			</div>
+                        </div>
+
+                        <div class="form-group">		
+        			<label class="col-sm-3 control-label">#springMessageText("messages.books.price" "messages.books.price")<br><span id="price_error" style="color: red" class="lnd_input_error"></span></label>
+        			<div class="col-sm-9">
+                                        <input type="number" class="form-control" name="price" id="price">
+        			</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">#springMessageText("messages.book.Image" "messages.book.Image")<br><span id="file_error" style="color: red" class="lnd_input_error"></span></label>
+                            <div class="col-sm-9">
+                                <span class="btn btn-default btn-file"><input id="file" name="transfer_file" type="file" placeholder = "file">#springMessageText("messages.book.ChooseImage" "messages.book.ChooseImage")</input></span>
+                             </div>
+                             
+                        </div>
+
+			<input type="number" style="display:none" name="hiddenBookId" id="hiddenBookId"/>
+			
+      </div>
+      
+	  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">#springMessageText("messages.userDetails.Close" "messages.userDetails.Close")</button>
+        <button class="btn btn-primary" type="button" onclick="validateForm()">#springMessageText("messages.books.saveBook" "messages.books.saveBook")</button>
+      </div>
+	  
+	  </form>
+    
+	</div>
+  </div>
+</div>	
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                 <h4 class="modal-title" id="detailsModalLabel"><span id="deviceDescription"/>#springMessageText("messages.books.information" "messages.books.information")</h4>
+            </div>      
+	  <div class="modal-body">
+		<div>
+                        <div style="text-align: center">
+                            <img id="modifiedImages" style="width: 140px; height:140px;"/>
+                        </div><br>
+			<div style= "text-align:center" >
+        			<label>#springMessageText("messages.books.title" "messages.books.title"):</label>
+				<span id="titles" name = "titles"/>
+			</div>
+			<br>
+			<div style= "text-align:center" >
+                               <label>#springMessageText("messages.books.writer" "messages.books.writer"):</label>
+				<span  id="writers"/>
+			</div>
+			<br>
+			<div style= "text-align:center" >
+                                <label>#springMessageText("messages.books.releaseDate" "messages.books.releaseDate"):</label>
+				<span id="release_dates"/>
+			</div>
+			<br>
+			<div style= "text-align:center" >
+                                <label>#springMessageText("messages.books.price" "messages.books.price"):</label>
+				<span id="prices"/><span> Ft </span>				
+			</div>
+			<br>
+			<div style= "text-align:center" >
+                                <label>#springMessageText("messages.books.category" "messages.books.category"):</label>
+				<span id="categorys"/>
+				
+			</div>
+			<br>
+		</div>
+		
+		<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">#springMessageText("messages.userDetails.Close" "messages.userDetails.Close")</button>
+      </div>
+				
+      </div>
+	</div>
+  </div>
+</div>	
+		
+		
+</body>
+</html>

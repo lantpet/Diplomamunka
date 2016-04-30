@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+
+
+.lns_login_control {
+	max-width: 500px;
+	display: table-cell;
+    vertical-align: middle; 
+}
+
+.lns_main_div {
+	display: table;
+	height: 99%;
+}

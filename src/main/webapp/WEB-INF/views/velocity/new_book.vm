@@ -1,0 +1,66 @@
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="./resources/css/bootstrap.css" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+		var titleEmpty = "#springMessageText("message.modifiedBook.titleEmpty" "message.modifiedBook.titleEmpty")";
+		var writerEmpty = "#springMessageText("message.modifiedBook.writerEmpty" "message.modifiedBook.writerEmpty")";
+                var priceEmpty = "#springMessageText("message.modifiedBook.priceEmpty" "message.modifiedBook.priceEmpty")";
+                var release_date_empty = "#springMessageText("message.modifiedBook.releaseDate_Empty" "message.modifiedBook.releaseDate_Empty")";
+                var categoryEmpty = "#springMessageText("message.modifiedBook.categoryEmpty" "message.modifiedBook.categoryEmpty ")";
+                var wrongFile = "#springMessageText("message.modifiedBook.wrongFile" "message.modifiedBook.wrongFile")";
+      
+    </script>
+    <script type="text/javascript"  src="./resources/js/newBookCheck.js"></script>
+	
+</head>
+<body>
+#parse("./menu.vm")<p></p>
+ 
+<div class="container">
+	<h4 align="center">#springMessageText("messages.new_book.Book" "messages.new_book.Book") </h4>
+	<form role="form" id="newBookIdentifier" action = "added_book" method="post" enctype="multipart/form-data">
+		
+		<div class="form-group col-sm-6">
+			<label>#springMessageText("messages.books.title" "messages.books.title")&nbsp<span  style="color:red" id="title_error" class="lnd_input_error"></span></label>
+			<input type="text" class="form-control" name="title" id="title">
+  		</div>
+                <div class="form-group col-sm-6">
+			<label>#springMessageText("messages.books.writer" "messages.books.writer")&nbsp<span style="color:red" id="writer_error" class="lnd_input_error"></span></label>
+			<input type="text" class="form-control" name="writer" id="writer">
+  		</div>
+  
+		<div class="form-group col-sm-6">
+			<label>#springMessageText("messages.books.releaseDate" "messages.books.releaseDate")&nbsp<span style="color:red" id="release_date_error" class="lnd_input_error"></span></label>
+			<input type="number" class="form-control" min="1900" max="2016" name="releaseDate" id="releaseDate">
+  		</div>
+
+                <div class="form-group  col-sm-6"">
+			<label>#springMessageText("messages.books.category" "messages.books.category")&nbsp<span style="color:red" id="category_error" class="lnd_input_error"></span></label>
+			<select class="form-control"  id="category" name="category">
+                                #foreach($category in $categoryMap)
+                                <option value="$category"> $category </option>
+                                #end
+                        </select>
+		</div>
+		
+		<div class="form-group col-sm-6">
+			<label>#springMessageText("messages.books.price" "messages.books.price")&nbsp<span style="color:red" id="price_error" class="lnd_input_error"></span></label>
+			<input type="number" class="form-control" name="price" id="price">
+  		</div>
+                <div class="form-group col-sm-3">
+                    <label>#springMessageText("messages.book.Image" "messages.book.Image")&nbsp<span style="color:red" id="file_error" class="lnd_input_error"></span></label><br>
+                    <span class="btn btn-default btn-file">
+                    <input name="transfer_file" type="file" placeholder = "file" id="file">
+                    #springMessageText("messages.book.ChooseImage" "messages.book.ChooseImage")
+                    </input></span>
+		</div>
+                
+		<div align="center" class="col-sm-12"><button type="button" onclick="validateForm()" class="btn btn-primary">#springMessageText("messages.new_book.saveBook" "messages.new_book.saveBook")</button></div>
+	</form>
+</div>
+
+</body>
+</html>

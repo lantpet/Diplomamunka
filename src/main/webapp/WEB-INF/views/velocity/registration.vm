@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css"/>
+        <link rel="stylesheet" type="text/css" href="./resources/css/bootstrap.css" />
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+		var emailAlreadyExist = "#springMessageText("message.registration.js.emailAlreadyExist" "message.registration.js.emailAlreadyExist")";
+		var fullNameEmpty = "#springMessageText("message.registration.js.fullNameEmpty" "message.registration.js.fullNameEmpty")";
+                var wrongInput = "#springMessageText("message.registration.js.wrongInput" "message.registration.js.wrongInput")";
+                var ageEmpty = "#springMessageText("message.registration.js.ageEmpty" "message.registration.js.ageEmpty")";
+                var passwordEmpty = "#springMessageText("message.registration.js.passwordEmpty" "message.registration.js.passwordEmpty")";
+                var userNameEmpty = "#springMessageText("message.registration.js.userNameEmpty" "message.registration.js.userNameEmpty")";
+    </script>
+    <script type="text/javascript"  src="./resources/js/newUserCheck.js"></script>
+	
+</head>
+<body>
+ 
+<div class="container">
+	<h4 align="center">#springMessageText("messages.new_user.Registration" "messages.new_user.Registration") </h4>
+	<form role="form"  id="newUserIdentifier" action = "added_user" method="post">
+		
+		<div class="form-group col-sm-6">
+			<label>#springMessageText("messages.new_user.fullname" "messages.new_user.fullname")&nbsp<span id="fullname_error" style="color:red"></span></label>
+			<input type="text" required class="form-control" name="fullName" id="fullName">
+  		</div>
+                <div class="form-group col-sm-6">
+			<label>#springMessageText("messages.new_user.username" "messages.new_user.username")&nbsp<span id="username_error" style="color:red"></span></label>
+			<input type="text" class="form-control" name="username" id="username">
+  		</div>
+  
+		<div class="form-group col-sm-6">
+			<label>#springMessageText("messages.new_user.email" "messages.new_user.email")&nbsp<span id="email_error" style="color:red"></span></label>
+			<input type="text" class="form-control" name="email" id="email"">
+  		</div>
+		
+		<div class="form-group col-sm-6">
+			<label>#springMessageText("messages.new_user.password" "messages.new_user.password")&nbsp<span id="password_error" style="color:red"</span></label>
+			<input type="password" class="form-control" name="password" id="password">
+  		</div>
+                <div class="form-group  col-sm-6"">
+				<label>#springMessageText("messages.new_user.age" "messages.new_user.age")&nbsp<span id="age_error" style="color:red" </span></label>
+				<input type="number" id="age" name="age" class="form-control" min="18" max="100">
+		</div>
+		<div align="center" class="col-sm-12"><button type="button" onclick="validateForm()" class="btn btn-primary">#springMessageText("messages.new_user.Registration" "messages.new_user.Registration")</button></div>
+	</form>
+</div>
+
+</body>
+</html>

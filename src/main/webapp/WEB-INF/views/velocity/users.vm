@@ -1,0 +1,89 @@
+<html>
+<head>
+	<title>Users</title>
+	
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<script>
+	$(document).ready( function () {
+        $('#employee_data_table').DataTable();
+    } );
+</script>
+</head>
+<body>
+	
+	 #parse("./menu.vm")<p></p>
+	 
+<div class="container container-fluid">
+	#if($userList.size()!=0)
+	<div class="panel panel-default">
+               
+                #if($!succesPayed)
+                <div class="alert alert-danger">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                $succesPayed
+                </div>
+                #end
+                <div class="panel-heading">
+			#springMessageText("messages.menu.UsersList" "messages.menu.UsersList")
+		</div>
+		
+		
+		<div class="panel-body">
+			<div class="table-responsive">
+    			<table id="employee_data_table" class="table table-striped table-bordered">
+        			<thead>
+        				<tr>
+            				<th>#springMessageText("messages.users.fullname" "messages.users.fullname")</th>
+            				<th>#springMessageText("messages.users.username" "messages.users.username")</th>
+                                        <th>#springMessageText("messages.users.email" "messages.users.email")</th>
+                                        <th>#springMessageText("messages.user.role" "messages.user.role")</th>
+                                        <th style="white-space: nowrap; width: 1%;"></th>
+        				</tr>
+        			</thead>
+        			
+        			<tbody>
+        				#foreach($users in $userList)
+        				<tr>
+        					<td>$users.getFullName()</td>
+        					<td>$users.getUsername()</td>
+        					<td>$users.getEmail()</td>
+        					<td>
+        					#if($users.getRole()=="USER")
+        						#springMessageText("messages.user.user" "messages.user.user")
+        					#else
+        						#springMessageText("messages.user.administrator" "messages.user.administrator")
+        					#end
+        					</td>
+                                                <td>
+                                                <a href="removeUser.$users.getId()" title="#springMessageText("message.devices.tt.culling" "message.devices.tt.culling")" class="btn btn-danger glyphicon glyphicon-trash"></a>
+                                                #if($users.getRole()=="USER")
+        						<a href="changeRole.$users.getId()" title="#springMessageText("message.devices.tt.culling" "message.devices.tt.culling")" class="btn btn-success glyphicon glyphicon-hand-down"></a>
+        					#else
+        						<a href="changeRole.$users.getId()" title="#springMessageText("message.devices.tt.culling" "message.devices.tt.culling")" class="btn btn-success glyphicon glyphicon-hand-up"></a>
+        					#end
+                                                </td>
+                			</tr>
+        			#end
+        			</tbody>
+    			</table>
+			</div>
+		</div>
+	</div>
+	#else
+		<div class="container">
+			#springMessageText("messages.product.noData" "messages.product.noData ")
+		</div>
+	#end
+</div>
+		
+		
+		
+</body>
+</html>
+
+

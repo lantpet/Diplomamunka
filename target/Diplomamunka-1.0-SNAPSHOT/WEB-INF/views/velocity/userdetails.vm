@@ -1,0 +1,87 @@
+<html>
+<head>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script>
+        function getUserID(userid){
+            $("#hiddenUserID").val(userid);
+    console.log(userid);
+        }
+    </script>
+<script>
+    var wrongPassword = "#springMessageText("message.wrong.password" "message.wrong.password")";
+    var pv1Empty = "#springMessageText("message.wrong.pv1Empty" "message.wrong.pv1Empty")";
+    var pv2Empty = "#springMessageText("message.wrong.pv2Empty" "message.wrong.pv2Empty")";
+</script>
+<script type="text/javascript"  src="./resources/js/passwordValidation.js"></script>
+</head>
+
+
+<body>
+	 #parse("./menu.vm")<p></p>
+<div class="container container-fluid">
+    <dl class="dl-horizontal">
+      <dt>#springMessageText("messages.users.fullname" "messages.users.fullname")</dt>
+      <dd>$loginuser.getFullName()</dd><br>
+      <dt>#springMessageText("messages.users.username" "messages.users.username")</dt>
+      <dd>$loginuser.getUsername()</dd><br>
+      <dt>#springMessageText("messages.users.email" "messages.users.email")</dt>
+      <dd>$loginuser.getEmail()</dd><br>
+      <dt>#springMessageText("messages.users.age" "messages.users.age")</dt>
+      <dd>$loginuser.getAge()</dd><br>
+      <dt>#springMessageText("messages.userDetails.modifyPassword" "messages.userDetails.modifyPassword")</dt>
+        <dd> 
+         <button class="btn btn-primary glyphicon glyphicon-pencil" title="#springMessageText("messages.employees.tt.modify" "messages.employees.tt.modify")" data-toggle="modal" data-target="#modifierModall", onclick='getUserID($loginuser.getId())'></button>
+         </dd><br>
+         #if($roles=="ADMIN")
+       <dt>#springMessageText("messages.menu.UsersList" "messages.menu.UsersList")</dt>
+        <dd> 
+          <a class="btn btn-primary" href="users">#springMessageText("messages.menu.UsersList" "messages.menu.UsersList")</a>
+         #end
+    </dl>
+  
+</div>
+
+<div class="modal fade" id="modifierModall" tabindex="-1" role="dialog" aria-labelledby="modifierModallLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+	  <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="modifierModallLabel">#springMessageText("messages.userDetails.modifyPassword" "messages.employees.modifyEmployee")&nbsp<span  style="color:red" id="password_error" class="lnd_input_error"></span> &nbsp<span style="color:red" id="pv1_error"></span></h4>
+      </div>
+	  
+	  <form class="form-horizontal" role="form" id="passwordIdentifier" action = "changePassword" method="post" id="modifierForm">
+      
+	  <div class="modal-body">
+		
+			<div class="form-group">		
+        			<label class="col-sm-3 control-label">#springMessageText("messages.userDetails.password" "messages.userDetails.password")&nbsp<span  style="color:red" id="pv1Empty" class="lnd_input_error"></span></label>
+        			<div class="col-sm-9">
+        				<input type="password" class="form-control" name="password1" id="password1">
+        			</div>
+                        </div>
+			
+			<div class="form-group">		
+        			<label class="col-sm-3 control-label">#springMessageText("message.userDetails.passwordAgain" "message.userDetails.passwordAgain")&nbsp<span  style="color:red" id="pv2Empty" class="lnd_input_error"></span></label>
+        			<div class="col-sm-9">
+                                    <input type="password" class="form-control" name="password2" id="password2">
+        			</div>
+                        </div>
+			<input type="number" style="display:none" name="hiddenUserID" id="hiddenUserID"/>
+			
+      </div>
+      
+	  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">#springMessageText("messages.userDetails.Close" "messages.userDetails.Close")</button>
+        <button class="btn btn-primary" type="button" onclick="validateForm()">#springMessageText("messages.userDetails.savePassword" "messages.userDetails.savePassword")</button>
+      </div>
+	  
+	  </form>
+    
+	</div>
+  </div>
+</div>	
+
+</body>
+</html>

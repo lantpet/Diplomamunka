@@ -1,0 +1,73 @@
+<html>
+<head>
+	<title>Books</title>
+	
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<script>
+	$(document).ready( function () {
+        $('#employee_data_table').DataTable();
+    } );
+</script>
+</head>
+<body>
+	
+	 #parse("./menu.vm")<p></p>
+	 
+<div class="container container-fluid">
+        #if($!succesPayed)
+                <div class="alert alert-success">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                #springMessageText("messages.cart.succesBuy" "messages.cart.succesBuy")
+                </div>
+                #end
+	#if($productList.size()!=0)
+	<div class="panel panel-default">
+                
+		<div class="panel-heading">
+                    <span class="text-left">Eddig fizetendő összeg: $price Ft</span>
+                    <a class="btn btn-primary pull-right" href="buyProduct" >Vásárlás</a>
+                    <div class="clearfix"></div>
+		</div>
+		
+		
+		<div class="panel-body">
+			<div class="table-responsive">
+    			<table id="employee_data_table" class="table table-striped table-bordered">
+        			<thead>
+        				<tr>
+            				<th>#springMessageText("messages.product.name" "messages.product.name")</th>
+            				<th>#springMessageText("messages.product.price" "messages.product.price")</th>
+                                        <th style="white-space: nowrap; width: 1%;"></th>
+        				</tr>
+        			</thead>
+        			
+        			<tbody>
+        				#foreach($product in $productList)
+        				<tr>
+        					<td>$product.getTitle()</td>
+        					<td>$product.getPrice()<span> Ft </span></td>
+                                                <td><a href="removeProduct.$product.getId()" title="#springMessageText("message.delete.delete" "message.delete.delete")" class="btn btn-danger glyphicon glyphicon-trash"></a></td>
+                			</tr>
+        			#end
+        			</tbody>
+    			</table>
+			</div>
+		</div>
+	</div>
+	#else
+		<div class="container">
+			#springMessageText("messages.product.noData" "messages.product.noData ")
+		</div>
+	#end
+</div>
+		
+		
+		
+</body>
+</html>
+
