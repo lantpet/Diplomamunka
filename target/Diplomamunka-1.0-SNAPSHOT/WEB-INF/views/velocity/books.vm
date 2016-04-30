@@ -165,6 +165,10 @@ function normalImg(x) {
 	#else
 		<div class="container">
 			#springMessageText("messages.books.noData" "messages.books.noData ")
+                        #if($roles=="ADMIN")
+                        <a class="btn btn-primary pull-right" href="new_book">#springMessageText("messages.menu.newBook" "messages.menu.newBook")</a>
+                        #end
+
 		</div>
 	#end
 </div>

@@ -18,8 +18,15 @@ function validateForm() {
     if (age == "" || age == null) {
         $("#age_error").html(ageEmpty);
         okay = false;
-    } else
+    } else {
         $("#age_error").html("");
+    
+        if (age <18) {
+            $("#wrongAge_error").html(wrongAge);
+            okay = false;
+        } else
+            $("#wrongAge_error").html("");
+     }
     
     if (password == "" || password == null) {
         $("#password_error").html(passwordEmpty);

@@ -9,8 +9,10 @@
 		var fullNameEmpty = "#springMessageText("message.registration.js.fullNameEmpty" "message.registration.js.fullNameEmpty")";
                 var wrongInput = "#springMessageText("message.registration.js.wrongInput" "message.registration.js.wrongInput")";
                 var ageEmpty = "#springMessageText("message.registration.js.ageEmpty" "message.registration.js.ageEmpty")";
+                var wrongAge = "#springMessageText("message.registration.js.wrongAge" "message.registration.js.wrongAge")";
                 var passwordEmpty = "#springMessageText("message.registration.js.passwordEmpty" "message.registration.js.passwordEmpty")";
                 var userNameEmpty = "#springMessageText("message.registration.js.userNameEmpty" "message.registration.js.userNameEmpty")";
+
     </script>
     <script type="text/javascript"  src="./resources/js/newUserCheck.js"></script>
 	
@@ -40,7 +42,7 @@
 			<input type="password" class="form-control" name="password" id="password">
   		</div>
                 <div class="form-group  col-sm-6"">
-				<label>#springMessageText("messages.new_user.age" "messages.new_user.age")&nbsp<span id="age_error" style="color:red" </span></label>
+				<label>#springMessageText("messages.new_user.age" "messages.new_user.age")&nbsp<span id="age_error" style="color:red"> </span><span id="wrongAge_error" style="color:red"> </span></label>
 				<input type="number" id="age" name="age" class="form-control" min="18" max="100">
 		</div>
 		<div align="center" class="col-sm-12"><button type="button" onclick="validateForm()" class="btn btn-primary">#springMessageText("messages.new_user.Registration" "messages.new_user.Registration")</button></div>
